@@ -24,4 +24,7 @@ class Pipeline:
                 detalle = str(error) or "Etapa pendiente de implementación"
                 print(f"Pipeline detenido en {nombre_etapa}: {detalle}.")
                 return False
+            except (OSError, ValueError) as error:
+                print(f"Error en {nombre_etapa}: {error}")
+                return False
         return True

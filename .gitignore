@@ -1,0 +1,9 @@
+# Notas internas para el informe
+docs/
+
+# Caché de Python
+__pycache__/
+*.pyc
+
+# Entorno virtual
+.venv/

@@ -1,0 +1,286 @@
+{
+    "title": "Pedestrian Dynamics Experiments Metadata",
+    "version": "2.0.0",
+    "experiment": {
+        "experiment_name": "BaSiGo_unidirectional_corridor",
+        "title": "Pedestrian flow in a unidirectional corridor",
+        "date_modified": "2024-02-29",
+        "date_created": "2013-06-22",
+        "date_published": "2023-09-13",
+        "publisher": "Forschungszentrum Jülich",
+        "about": "The goal of this experimental setup was to observe the density in a corridor while changing the entrance and exit width.",
+        "max_participant": 926,
+        "internal_storage": "smb://smb.its.kfa-juelich.de/ias-7_ped/experiments/2013.06.19_Duesseldorf_Messe_BaSiGo/",
+        "comment": "         ",
+        "funding": [
+            {
+                "number": "13N12043 until 13N12052",
+                "project_name": "BaSiGo",
+                "funder": "Federal Ministry of Education and Research (BMBF)"
+            },
+            {
+                "number": "POF2-411",
+                "project_name": "POF II",
+                "funder": "Forschungszentrum Jülich GmbH"
+            }
+        ],
+        "participants": [
+            {
+                "rolename": "random"
+            }
+        ],
+        "sensors": [
+            {
+                "category": "camera",
+                "model": "UI-3240CP-M-GL",
+                "brand": "iDS Imaging"
+            }
+        ],
+        "publication": [
+            {
+                "doi": "10.34735/ped.2013.6"
+            }
+        ],
+        "persons": [
+            {
+                "given_name": "Armin",
+                "family_name": "Seyfried",
+                "orcid": "0000-0001-8888-0978",
+                "affiliations": [
+                    {
+                        "affiliation_name": "Forschungszentrum Jülich",
+                        "ror": "02nv7yv05"
+                    },
+                    {
+                        "affiliation_name": "University of Wuppertal",
+                        "ror": "00613ak93"
+                    }
+                ]
+            },
+            {
+                "given_name": "Maik",
+                "family_name": "Boltes",
+                "orcid": "0000-0001-7240-896X",
+                "affiliations": [
+                    {
+                        "affiliation_name": "Forschungszentrum Jülich",
+                        "ror": "02nv7yv05"
+                    }
+                ]
+            },
+            {
+                "given_name": "Stefan",
+                "family_name": "Holl",
+                "orcid": "                   ",
+                "affiliations": [
+                    {
+                        "affiliation_name": "Forschungszentrum Jülich",
+                        "ror": "02nv7yv05"
+                    }
+                ]
+            },
+            {
+                "given_name": "Wolfgang",
+                "family_name": "Mehner",
+                "orcid": "                   ",
+                "affiliations": [
+                    {
+                        "affiliation_name": "Forschungszentrum Jülich",
+                        "ror": "02nv7yv05"
+                    }
+                ]
+            }
+        ],
+        "documentations": [
+            {
+                "name": "documentation",
+                "link": "smb://smb.its.kfa-juelich.de/ias-7_ped/experiments/2013.06.19_Duesseldorf_Messe_BaSiGo/docu/final/holl_IAS_Series_32.pdf",
+                "about": ""
+            },
+            {
+                "name": "overview image",
+                "link": "smb://smb.its.kfa-juelich.de/ias-7_ped/experiments/2013.06.19_Duesseldorf_Messe_BaSiGo/docu/final/overview_uni_corr.png",
+                "about": ""
+            },
+            {
+                "name": "setup_sketch",
+                "link": "smb://smb.its.kfa-juelich.de/ias-7_ped/experiments/2013.06.19_Duesseldorf_Messe_BaSiGo/docu/final/sketch_setup_uni_corr.pdf",
+                "about": ""
+            }
+        ],
+        "affiliations": [
+            {
+                "affiliation_name": "Forschungszentrum Jülich",
+                "ror": "02nv7yv05"
+            },
+            {
+                "affiliation_name": "University of Wuppertal",
+                "ror": "00613ak93"
+            }
+        ],
+        "locations": [
+            {
+                "institution_name": "Messe Duesseldorf GmbH",
+                "street_address": "Stockumer Kirchstr. 61",
+                "postal_code": "40474",
+                "city": "Düsseldorf",
+                "state": "         ",
+                "country": "DE",
+                "building_name": "Hall 9"
+            }
+        ],
+        "run": [
+            {
+                "run_name": "uni_corr_500_08",
+                "start_date": "2023-06-22",
+                "start_time": "15:05:00",
+                "number_participants": 926,
+                "wkt_geometry": "POLYGON ((-10 7, 10 7, 10 -2, -10 -2, -10 7), (-9 5, -5 5, -5 3.5, -4 3.5, -4 5, 9 5, 9 6, -9 6, -9 5), (9 0, -4 0, -4 1.5, -5 1.5, -5 0, -9 0, -9 -1, 9 -1, 9 0))",
+                "notes": "exit width was enlarged during the experiment to 5m (around frame 1700!)",
+                "parameter": {
+                    "corridor width [m]": "5",
+                    "corridor length [m]": "18",
+                    "entrance width [m]": "5",
+                    "exit width [m]": "2",
+                    "movement_direction": "right to left"
+                },
+                "status": "published"
+            },
+            {
+                "run_name": "uni_corr_500_09",
+                "start_date": "2023-06-22",
+                "start_time": "15:09:00",
+                "number_participants": 926,
+                "wkt_geometry": "POLYGON ((-10 7, 10 7, 10 -2, -10 -2, -10 7), (-9 5, 4 5, 4 3, 5 3, 5 5, 9 5, 9 6, -9 6, -9 5), (9 0, 5 0, 5 2, 4 2, 4 0, -9 0, -9 -1, 9 -1, 9 0))",
+                "notes": "exit width was reduced during the experiment to 0.6m, emergency exits were opened during the run",
+                "parameter": {
+                    "corridor width [m]": "5",
+                    "corridor length [m]": "18",
+                    "entrance width [m]": "5",
+                    "exit width [m]": "1",
+                    "movement_direction": "left to right"
+                },
+                "status": "published"
+            },
+            {
+                "run_name": "uni_corr_500_02",
+                "start_date": "2023-06-22",
+                "start_time": "14:39:00",
+                "number_participants": 926,
+                "wkt_geometry": "POLYGON ((-10 7, 10 7, 10 -2, -10 -2, -10 7), (-9 5, 8 5, 8 3.5, 9 3.5, 9 5, 9 6, -9 6, -9 5), (9 0, 9 1.5, 8 1.5, 8 0, -9 0, -9 -1, 9 -1, 9 0))",
+                "notes": "guide splitting pedestrian stream upon entering corridor",
+                "parameter": {
+                    "corridor width [m]": "5",
+                    "corridor length [m]": "18",
+                    "entrance width [m]": "2",
+                    "exit width [m]": "5",
+                    "movement_direction": "right to left"
+                },
+                "status": "published"
+            },
+            {
+                "run_name": "uni_corr_500_03",
+                "start_date": "2023-06-22",
+                "start_time": "14:43:00",
+                "number_participants": 926,
+                "wkt_geometry": "POLYGON ((-10 7, 10 7, 10 -2, -10 -2, -10 7), (-9 5, -9 4, -8 4, -8 5, 9 5, 9 6, -9 6, -9 5), (9 0, -8 0, -8 1, -9 1, -9 0, -9 -1, 9 -1, 9 0))",
+                "notes": null,
+                "parameter": {
+                    "corridor width [m]": "5",
+                    "corridor length [m]": "18",
+                    "entrance width [m]": "3",
+                    "exit width [m]": "5",
+                    "movement_direction": "left to right"
+                },
+                "status": "published"
+            },
+            {
+                "run_name": "uni_corr_500_04",
+                "start_date": "2023-06-22",
+                "start_time": "14:46:00",
+                "number_participants": 926,
+                "wkt_geometry": "POLYGON ((-10 7, 10 7, 10 -2, -10 -2, -10 7), (-9 5, 8 5, 8 4.5, 9 4.5, 9 5, 9 6, -9 6, -9 5), (9 0, 9 0.5, 8 0.5, 8 0, -9 0, -9 -1, 9 -1, 9 0))",
+                "notes": null,
+                "parameter": {
+                    "corridor width [m]": "5",
+                    "corridor length [m]": "18",
+                    "entrance width [m]": "4",
+                    "exit width [m]": "5",
+                    "movement_direction": "right to left"
+                },
+                "status": "published"
+            },
+            {
+                "run_name": "uni_corr_500_05",
+                "start_date": "2023-06-22",
+                "start_time": "14:50:00",
+                "number_participants": 926,
+                "wkt_geometry": "POLYGON ((10 -2, -10 -2, -10 7, 10 7, 10 -2), (9 6, -9 6, -9 5, 9 5, 9 6), (-9 -1, 9 -1, 9 0, -9 0, -9 -1))",
+                "notes": null,
+                "parameter": {
+                    "corridor width [m]": "5",
+                    "corridor length [m]": "18",
+                    "entrance width [m]": "5",
+                    "exit width [m]": "5",
+                    "movement_direction": "left to right"
+                },
+                "status": "published"
+            },
+            {
+                "run_name": "uni_corr_500_06",
+                "start_date": "2023-06-22",
+                "start_time": "14:54:00",
+                "number_participants": 926,
+                "wkt_geometry": "POLYGON ((-10 7, 10 7, 10 -2, -10 -2, -10 7), (-9 5, -5 5, -5 4.5, -4 4.5, -4 5, 9 5, 9 6, -9 6, -9 5), (9 0, -4 0, -4 0.5, -5 0.5, -5 0, -9 0, -9 -1, 9 -1, 9 0))",
+                "notes": null,
+                "parameter": {
+                    "corridor width [m]": "5",
+                    "corridor length [m]": "18",
+                    "entrance width [m]": "5",
+                    "exit width [m]": "4",
+                    "movement_direction": "right to left"
+                },
+                "status": "published"
+            },
+            {
+                "run_name": "uni_corr_500_07",
+                "start_date": "2023-06-22",
+                "start_time": "15:00:00",
+                "number_participants": 926,
+                "wkt_geometry": "POLYGON ((-10 7, 10 7, 10 -2, -10 -2, -10 7), (-9 5, 4 5, 4 4, 5 4, 5 5, 9 5, 9 6, -9 6, -9 5), (9 0, 5 0, 5 1, 4 1, 4 0, -9 0, -9 -1, 9 -1, 9 0))",
+                "notes": null,
+                "parameter": {
+                    "corridor width [m]": "5",
+                    "corridor length [m]": "18",
+                    "entrance width [m]": "5",
+                    "exit width [m]": "3",
+                    "movement_direction": "left to right"
+                },
+                "status": "published"
+            },
+            {
+                "run_name": "uni_corr_500_01",
+                "start_date": "2023-06-22",
+                "start_time": "14:31:00",
+                "number_participants": 142,
+                "wkt_geometry": "POLYGON ((-10 7, 10 7, 10 -2, -10 -2, -10 7), (-9 6, -9 5, 8 5, 8 3, 9 3, 9 6, -9 6), (-9 0, -9 -1, 9 -1, 9 2, 8 2, 8 0, -9 0))",
+                "notes": "guide splitting pedestrian stream upon entering corridor",
+                "parameter": {
+                    "corridor width [m]": "5",
+                    "corridor length [m]": "18",
+                    "entrance width [m]": "1",
+                    "exit width [m]": "5",
+                    "movement_direction": "right to left"
+                },
+                "status": "published"
+            }
+        ],
+        "keywords": [
+            "pedestrian dynamics",
+            "experiment",
+            "camera tracking",
+            "corridor",
+            "unidirectional"
+        ]
+    }
+}
