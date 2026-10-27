@@ -14,6 +14,9 @@ class Experimento:
     corridas fueron registradas con la misma frecuencia. ``parametros`` y
     ``notas`` provienen de ``metadata.json`` y describen la condición
     experimental (anchos de entrada/salida y sentido de movimiento).
+
+    Los resultados espaciales se guardan como tablas (listas de filas) porque
+    cada uno tiene una fila por zona, por segundo o por intervalo de tiempo.
     """
 
     nombre: str
@@ -24,4 +27,7 @@ class Experimento:
     trayectorias: list[Trayectoria] = field(default_factory=list)
     reporte_validacion: dict[str, int] = field(default_factory=dict)
     resultados_individuales: dict[int, dict[str, float]] = field(default_factory=dict)
+    resultados_zonas: list[dict[str, float]] = field(default_factory=list)
+    serie_densidad: list[dict[str, float]] = field(default_factory=list)
+    serie_flujo: list[dict[str, float]] = field(default_factory=list)
     resultados_colectivos: dict[str, float] = field(default_factory=dict)

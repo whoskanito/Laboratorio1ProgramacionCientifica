@@ -60,8 +60,8 @@ def crear_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--ventana",
         type=float,
-        default=5.0,
-        help="Ancho total [s] de la ventana de suavizado de velocidad (por defecto: 5.0).",
+        default=1.0,
+        help="Ancho total [s] de la ventana de suavizado de velocidad (por defecto: 1.0).",
     )
     parser.add_argument(
         "--umbral-detencion",
@@ -74,6 +74,24 @@ def crear_parser() -> argparse.ArgumentParser:
         type=float,
         default=0.5,
         help="Duración mínima [s] de una detención (por defecto: 0.5).",
+    )
+    parser.add_argument(
+        "--ancho-zona",
+        type=float,
+        default=1.0,
+        help="Largo [m] de cada zona del análisis espacial (por defecto: 1.0).",
+    )
+    parser.add_argument(
+        "--linea-flujo",
+        type=float,
+        default=0.0,
+        help="Coordenada x [m] de la línea transversal donde se mide el flujo (por defecto: 0.0).",
+    )
+    parser.add_argument(
+        "--ventana-flujo",
+        type=float,
+        default=10.0,
+        help="Duración [s] de los intervalos de la serie de flujo (por defecto: 10.0).",
     )
     return parser
 
@@ -97,7 +115,11 @@ def main(argumentos: Sequence[str] | None = None) -> int:
             umbral_detencion=configuracion.umbral_detencion,
             duracion_minima_detencion=configuracion.duracion_detencion,
         ),
-        AnalisisEspacial(),
+        AnalisisEspacial(
+            ancho_zona=configuracion.ancho_zona,
+            linea_flujo=configuracion.linea_flujo,
+            ventana_flujo=configuracion.ventana_flujo,
+        ),
         ComparacionExperimentos(),
         ExportacionResultados(),
     ]

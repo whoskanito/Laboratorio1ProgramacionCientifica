@@ -36,7 +36,7 @@ class AnalisisIndividual(EtapaPipeline[list[Experimento], list[Experimento]]):
 
     def __init__(
         self,
-        ventana_suavizado: float = 5.0,
+        ventana_suavizado: float = 1.0,
         umbral_detencion: float = 0.2,
         duracion_minima_detencion: float = 0.5,
     ) -> None:
