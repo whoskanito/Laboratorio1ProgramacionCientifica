@@ -57,6 +57,24 @@ def crear_parser() -> argparse.ArgumentParser:
         default=1.0,
         help="Duración mínima [s] para conservar una trayectoria (por defecto: 1.0).",
     )
+    parser.add_argument(
+        "--ventana",
+        type=float,
+        default=5.0,
+        help="Ancho total [s] de la ventana de suavizado de velocidad (por defecto: 5.0).",
+    )
+    parser.add_argument(
+        "--umbral-detencion",
+        type=float,
+        default=0.2,
+        help="Velocidad [m/s] bajo la cual un peatón se considera detenido (por defecto: 0.2).",
+    )
+    parser.add_argument(
+        "--duracion-detencion",
+        type=float,
+        default=0.5,
+        help="Duración mínima [s] de una detención (por defecto: 0.5).",
+    )
     return parser
 
 
@@ -74,7 +92,11 @@ def main(argumentos: Sequence[str] | None = None) -> int:
             velocidad_maxima=configuracion.vel_max,
             duracion_minima=configuracion.duracion_min,
         ),
-        AnalisisIndividual(),
+        AnalisisIndividual(
+            ventana_suavizado=configuracion.ventana,
+            umbral_detencion=configuracion.umbral_detencion,
+            duracion_minima_detencion=configuracion.duracion_detencion,
+        ),
         AnalisisEspacial(),
         ComparacionExperimentos(),
         ExportacionResultados(),
