@@ -10,7 +10,7 @@ from models.experimento import Experimento
 from models.region import Region
 from models.trayectoria import Trayectoria
 from pipeline.contexto import ContextoPipeline
-from pipeline.etapa import EtapaPipeline
+from pipeline.etapa import EtapaPorElemento
 
 # Tramo del corredor cubierto por las cámaras en las nueve corridas.
 REGION_ANALISIS = Region("corredor", x_min=-5.0, x_max=4.0, y_min=0.0, y_max=5.0)
@@ -22,6 +22,14 @@ UMBRAL_ZONA_LENTA = 0.8  # fracción de la velocidad media de la región
 def promedio(valores: list[float]) -> float:
     """Media aritmética, o NaN si no hay valores."""
     return statistics.fmean(valores) if valores else math.nan
+
+
+def correlacion(x: list[float], y: list[float]) -> float:
+    """Coeficiente de Pearson, o NaN si hay menos de dos datos o alguna serie es constante."""
+    try:
+        return statistics.correlation(x, y)
+    except statistics.StatisticsError:
+        return math.nan
 
 
 def sentido_movimiento(trayectorias: list[Trayectoria]) -> int:
@@ -51,7 +59,7 @@ def instante_cruce(
     )
 
 
-class AnalisisEspacial(EtapaPipeline[list[Experimento], list[Experimento]]):
+class AnalisisEspacial(EtapaPorElemento[Experimento]):
     """Agrupa el análisis por zonas y los cálculos de densidad y flujo."""
 
     def __init__(
@@ -76,23 +84,16 @@ class AnalisisEspacial(EtapaPipeline[list[Experimento], list[Experimento]]):
         self._region = region
         self._area_medicion = area_medicion
 
-    def ejecutar(
-        self,
-        experimentos: list[Experimento],
-        contexto: ContextoPipeline,
-    ) -> list[Experimento]:
-        """Analiza las zonas, la densidad y el flujo de cada experimento."""
-        analizados = [self._analizar(experimento) for experimento in experimentos]
-        for experimento in analizados:
-            r = experimento.resultados_colectivos
-            lentas = [f["zona"] for f in experimento.resultados_zonas if f["zona_lenta"]]
-            print(
-                f"  {experimento.nombre}: densidad media {r['densidad_media']:.2f} 1/m², "
-                f"flujo {r['flujo']:.2f} 1/s, zonas lentas {lentas or 'ninguna'}"
-            )
-        return analizados
+    def describir(self, experimento: Experimento) -> str:
+        """Densidad media, flujo y zonas lentas del experimento."""
+        r = experimento.resultados_colectivos
+        lentas = [f["zona"] for f in experimento.resultados_zonas if f["zona_lenta"]]
+        return (
+            f"{experimento.nombre}: densidad media {r['densidad_media']:.2f} 1/m², "
+            f"flujo {r['flujo']:.2f} 1/s, zonas lentas {lentas or 'ninguna'}"
+        )
 
-    def _analizar(self, experimento: Experimento) -> Experimento:
+    def procesar(self, experimento: Experimento, contexto: ContextoPipeline) -> Experimento:
         """Retorna una copia del experimento con los resultados espaciales."""
         sentido = sentido_movimiento(experimento.trayectorias)
         zonas = self._analizar_zonas(experimento, sentido)
@@ -218,6 +219,21 @@ class AnalisisEspacial(EtapaPipeline[list[Experimento], list[Experimento]]):
         ]
         return filas, cruces
 
+    def _tiempo_cruce_region(self, experimento: Experimento) -> float:
+        """Tiempo medio [s] dentro de la región de análisis de quienes la recorren completa.
+
+        A diferencia del tiempo total observado, no depende de cuánto del
+        corredor cubre la cámara en cada corrida, por lo que es comparable.
+        """
+        region = self._region
+        tiempos = [
+            sum(region.contiene(o.x, o.y) for o in t.observaciones) / experimento.fps
+            for t in experimento.trayectorias
+            if min(o.x for o in t.observaciones) < region.x_min
+            and max(o.x for o in t.observaciones) >= region.x_max
+        ]
+        return promedio(tiempos)
+
     def _resumir(
         self,
         experimento: Experimento,
@@ -229,20 +245,17 @@ class AnalisisEspacial(EtapaPipeline[list[Experimento], list[Experimento]]):
         con_velocidad = [fila for fila in ocupados if not math.isnan(fila["velocidad_media"])]
         densidades = [fila["densidad"] for fila in con_velocidad]
         velocidades = [fila["velocidad_media"] for fila in con_velocidad]
-        try:
-            correlacion = statistics.correlation(densidades, velocidades)
-        except statistics.StatisticsError:
-            correlacion = math.nan
 
         duracion_cruces = cruces[-1] - cruces[0] if len(cruces) > 1 else 0.0
         flujo = (len(cruces) - 1) / duracion_cruces if duracion_cruces > 0 else 0.0
         ancho = float(experimento.parametros.get("corridor width [m]", self._region.y_max - self._region.y_min))
         return {
             "peatones": len(experimento.trayectorias),
+            "tiempo_cruce_region": self._tiempo_cruce_region(experimento),
             "densidad_media": promedio([fila["densidad"] for fila in ocupados]),
             "densidad_maxima": max((fila["densidad"] for fila in ocupados), default=0.0),
             "velocidad_media_area": promedio(velocidades),
-            "correlacion_densidad_velocidad": correlacion,
+            "correlacion_densidad_velocidad": correlacion(densidades, velocidades),
             "cruces_linea": len(cruces),
             "flujo": flujo,
             "flujo_especifico": flujo / ancho,

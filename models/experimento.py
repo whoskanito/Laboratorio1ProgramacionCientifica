@@ -1,6 +1,7 @@
 """Entidad que agrupa los datos y resultados de un experimento."""
 
 from dataclasses import dataclass, field
+from pathlib import Path
 
 from .observacion import Observacion
 from .trayectoria import Trayectoria
@@ -21,6 +22,7 @@ class Experimento:
 
     nombre: str
     fps: float
+    ruta: Path | None = None
     parametros: dict[str, str] = field(default_factory=dict)
     notas: str | None = None
     observaciones: list[Observacion] = field(default_factory=list)
@@ -31,3 +33,21 @@ class Experimento:
     serie_densidad: list[dict[str, float]] = field(default_factory=list)
     serie_flujo: list[dict[str, float]] = field(default_factory=list)
     resultados_colectivos: dict[str, float] = field(default_factory=dict)
+
+    def __getstate__(self) -> dict:
+        """Estado a serializar, por ejemplo, al devolver el experimento desde otro proceso.
+
+        Tras la preparación, ``observaciones`` contiene exactamente las
+        observaciones de las trayectorias: no se envían dos veces y se
+        reconstruyen al recibirlas.
+        """
+        estado = self.__dict__.copy()
+        if self.trayectorias:
+            estado["observaciones"] = None
+        return estado
+
+    def __setstate__(self, estado: dict) -> None:
+        """Restaura el experimento y, si hace falta, reconstruye sus observaciones."""
+        self.__dict__.update(estado)
+        if self.observaciones is None:
+            self.observaciones = [obs for t in self.trayectorias for obs in t.observaciones]

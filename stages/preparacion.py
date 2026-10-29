@@ -10,7 +10,7 @@ from models.experimento import Experimento
 from models.observacion import Observacion
 from models.trayectoria import Trayectoria
 from pipeline.contexto import ContextoPipeline
-from pipeline.etapa import EtapaPipeline
+from pipeline.etapa import EtapaPorElemento
 
 
 def es_registro_valido(observacion: Observacion) -> bool:
@@ -49,7 +49,7 @@ def filtrar_saltos(
     return reduce(acumular, observaciones[1:], [observaciones[0]])
 
 
-class PreparacionTrayectorias(EtapaPipeline[list[Experimento], list[Experimento]]):
+class PreparacionTrayectorias(EtapaPorElemento[Experimento]):
     """Agrupa validación, organización y reconstrucción de trayectorias."""
 
     def __init__(self, velocidad_maxima: float = 4.0, duracion_minima: float = 1.0) -> None:
@@ -62,19 +62,12 @@ class PreparacionTrayectorias(EtapaPipeline[list[Experimento], list[Experimento]
         self._velocidad_maxima = velocidad_maxima
         self._duracion_minima = duracion_minima
 
-    def ejecutar(
-        self,
-        experimentos: list[Experimento],
-        contexto: ContextoPipeline,
-    ) -> list[Experimento]:
-        """Prepara las observaciones y trayectorias de cada experimento."""
-        preparados = [self._preparar(experimento) for experimento in experimentos]
-        for experimento in preparados:
-            reporte = ", ".join(f"{k}={v}" for k, v in experimento.reporte_validacion.items())
-            print(f"  {experimento.nombre}: {len(experimento.trayectorias)} trayectorias ({reporte})")
-        return preparados
+    def describir(self, experimento: Experimento) -> str:
+        """Trayectorias obtenidas y descartes de la validación."""
+        reporte = ", ".join(f"{k}={v}" for k, v in experimento.reporte_validacion.items())
+        return f"{experimento.nombre}: {len(experimento.trayectorias)} trayectorias ({reporte})"
 
-    def _preparar(self, experimento: Experimento) -> Experimento:
+    def procesar(self, experimento: Experimento, contexto: ContextoPipeline) -> Experimento:
         """Retorna una copia del experimento con observaciones validadas y trayectorias."""
         validas, reporte = self._validar_observaciones(experimento.observaciones)
         organizadas = self._organizar_observaciones(validas)

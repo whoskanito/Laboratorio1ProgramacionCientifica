@@ -1,10 +1,12 @@
 """Punto de entrada"""
 
 import argparse
+import os
 from pathlib import Path
 from typing import Sequence
 
 from pipeline.contexto import ContextoPipeline
+from pipeline.paralelo import ProcesamientoParalelo
 from pipeline.pipeline import Pipeline
 from stages import (
     AnalisisEspacial,
@@ -12,6 +14,8 @@ from stages import (
     CargaExperimentos,
     ComparacionExperimentos,
     ExportacionResultados,
+    GeneracionGraficos,
+    LecturaObservaciones,
     PreparacionTrayectorias,
 )
 
@@ -93,6 +97,22 @@ def crear_parser() -> argparse.ArgumentParser:
         default=10.0,
         help="Duración [s] de los intervalos de la serie de flujo (por defecto: 10.0).",
     )
+    parser.add_argument(
+        "--procesos",
+        type=int,
+        # Mitad de los núcleos lógicos ≈ núcleos físicos: con hyperthreading, dos
+        # procesos de Python en el mismo núcleo físico no se aceleran entre sí.
+        default=max(1, (os.cpu_count() or 2) // 2),
+        help=(
+            "Procesos para analizar los experimentos en paralelo; 1 ejecuta todo "
+            "en un solo proceso (por defecto: la mitad de los núcleos lógicos)."
+        ),
+    )
+    parser.add_argument(
+        "--sin-graficos",
+        action="store_true",
+        help="No genera las figuras (útil si matplotlib no está instalado).",
+    )
     return parser
 
 
@@ -103,9 +123,11 @@ def main(argumentos: Sequence[str] | None = None) -> int:
         ruta_entrada=configuracion.input,
         ruta_salida=configuracion.output,
         fps=configuracion.fps,
+        parametros=vars(configuracion),
     )
-    etapas = [
-        CargaExperimentos(),
+    # Etapas independientes por experimento: cada proceso ejecuta la cadena completa de uno.
+    analisis_por_experimento = [
+        LecturaObservaciones(),
         PreparacionTrayectorias(
             velocidad_maxima=configuracion.vel_max,
             duracion_minima=configuracion.duracion_min,
@@ -120,9 +142,19 @@ def main(argumentos: Sequence[str] | None = None) -> int:
             linea_flujo=configuracion.linea_flujo,
             ventana_flujo=configuracion.ventana_flujo,
         ),
+    ]
+    etapas = [
+        CargaExperimentos(),
+        ProcesamientoParalelo(
+            analisis_por_experimento,
+            procesos=configuracion.procesos,
+            costo=lambda experimento: experimento.ruta.stat().st_size,
+        ),
         ComparacionExperimentos(),
         ExportacionResultados(),
     ]
+    if not configuracion.sin_graficos:
+        etapas.append(GeneracionGraficos())
     pipeline = Pipeline(etapas)
 
     print("Configuración seleccionada:")
@@ -130,6 +162,7 @@ def main(argumentos: Sequence[str] | None = None) -> int:
     print(f"  Salida: {contexto.ruta_salida}")
     frecuencia = str(contexto.fps) if contexto.fps is not None else "según cabecera de cada archivo"
     print(f"  Frecuencia (fps): {frecuencia}")
+    print(f"  Procesos: {configuracion.procesos}")
 
     return 0 if pipeline.ejecutar(contexto) else 1
 

@@ -8,7 +8,7 @@ from models.experimento import Experimento
 from models.observacion import Observacion
 from models.trayectoria import Trayectoria
 from pipeline.contexto import ContextoPipeline
-from pipeline.etapa import EtapaPipeline
+from pipeline.etapa import EtapaPorElemento
 
 
 def detectar_detenciones(
@@ -31,7 +31,7 @@ def detectar_detenciones(
     return [(ini, fin) for ini, fin in intervalos if (fin - ini) / fps >= duracion_minima]
 
 
-class AnalisisIndividual(EtapaPipeline[list[Experimento], list[Experimento]]):
+class AnalisisIndividual(EtapaPorElemento[Experimento]):
     """Coordina el análisis de múltiples trayectorias y reúne sus indicadores."""
 
     def __init__(
@@ -50,26 +50,19 @@ class AnalisisIndividual(EtapaPipeline[list[Experimento], list[Experimento]]):
         self._umbral = umbral_detencion
         self._duracion_minima = duracion_minima_detencion
 
-    def ejecutar(
-        self,
-        experimentos: list[Experimento],
-        contexto: ContextoPipeline,
-    ) -> list[Experimento]:
-        """Analiza las trayectorias de cada experimento."""
-        analizados = [self._analizar(experimento) for experimento in experimentos]
-        for experimento in analizados:
-            resultados = list(experimento.resultados_individuales.values())
-            v_media, eficiencia, detenido = (
-                statistics.mean(r[clave] for r in resultados)
-                for clave in ("velocidad_media", "eficiencia", "porcentaje_detenido")
-            )
-            print(
-                f"  {experimento.nombre}: v media {v_media:.2f} m/s, "
-                f"eficiencia {eficiencia:.2f}, detenido {detenido:.1f} % del tiempo"
-            )
-        return analizados
+    def describir(self, experimento: Experimento) -> str:
+        """Promedios de velocidad, eficiencia y tiempo detenido del experimento."""
+        resultados = list(experimento.resultados_individuales.values())
+        v_media, eficiencia, detenido = (
+            statistics.mean(r[clave] for r in resultados)
+            for clave in ("velocidad_media", "eficiencia", "porcentaje_detenido")
+        )
+        return (
+            f"{experimento.nombre}: v media {v_media:.2f} m/s, "
+            f"eficiencia {eficiencia:.2f}, detenido {detenido:.1f} % del tiempo"
+        )
 
-    def _analizar(self, experimento: Experimento) -> Experimento:
+    def procesar(self, experimento: Experimento, contexto: ContextoPipeline) -> Experimento:
         """Retorna una copia del experimento con velocidades e indicadores calculados."""
         fps = experimento.fps
         trayectorias = [
