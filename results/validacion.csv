@@ -1,0 +1,10 @@
+experimento,observaciones_leidas,lineas_mal_formadas,registros_invalidos,duplicados,saltos_eliminados,trayectorias_cortas
+uni_corr_500_01,28993,0,0,0,180,1
+uni_corr_500_02,165585,0,0,0,1,0
+uni_corr_500_03,193908,0,0,0,23,1
+uni_corr_500_04,264102,0,0,0,19,1
+uni_corr_500_05,272000,0,0,0,216,2
+uni_corr_500_06,331471,0,0,0,21,1
+uni_corr_500_07,386510,0,0,0,10,1
+uni_corr_500_08,433875,0,0,0,20,1
+uni_corr_500_09,572507,0,0,0,69,1

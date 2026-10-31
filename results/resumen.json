@@ -1,0 +1,301 @@
+{
+  "generado": "2026-10-30T23:26:20",
+  "parametros": {
+    "input": "data",
+    "output": "results",
+    "fps": null,
+    "vel_max": 4.0,
+    "duracion_min": 1.0,
+    "ventana": 1.0,
+    "umbral_detencion": 0.2,
+    "duracion_detencion": 0.5,
+    "ancho_zona": 1.0,
+    "linea_flujo": 0.0,
+    "ventana_flujo": 10.0,
+    "procesos": 4,
+    "sin_graficos": false
+  },
+  "comparacion": {
+    "correlacion_densidad_velocidad_segundos": -0.8523,
+    "correlacion_densidad_velocidad_experimentos": -0.999,
+    "experimento_mayor_flujo": "uni_corr_500_05",
+    "flujo_maximo": 6.2409,
+    "flujo_especifico_maximo": 1.2482,
+    "densidad_en_flujo_maximo": 1.8966,
+    "experimento_mas_congestionado": "uni_corr_500_09",
+    "densidad_media_maxima": 2.7366,
+    "rmse_weidmann": 0.1055
+  },
+  "experimentos": {
+    "uni_corr_500_01": {
+      "fps": 16.0,
+      "parametros": {
+        "corridor width [m]": "5",
+        "corridor length [m]": "18",
+        "entrance width [m]": "1",
+        "exit width [m]": "5",
+        "movement_direction": "right to left"
+      },
+      "notas": "guide splitting pedestrian stream upon entering corridor",
+      "validacion": {
+        "observaciones_leidas": 28993,
+        "lineas_mal_formadas": 0,
+        "registros_invalidos": 0,
+        "duplicados": 0,
+        "saltos_eliminados": 180,
+        "trayectorias_cortas": 1
+      },
+      "colectivos": {
+        "peatones": 141,
+        "tiempo_cruce_region": 6.125,
+        "densidad_media": 0.2502,
+        "densidad_maxima": 0.5094,
+        "velocidad_media_area": 1.4149,
+        "correlacion_densidad_velocidad": 0.3385,
+        "cruces_linea": 140,
+        "flujo": 2.0028,
+        "flujo_especifico": 0.4006
+      }
+    },
+    "uni_corr_500_02": {
+      "fps": 25.0,
+      "parametros": {
+        "corridor width [m]": "5",
+        "corridor length [m]": "18",
+        "entrance width [m]": "2",
+        "exit width [m]": "5",
+        "movement_direction": "right to left"
+      },
+      "notas": "guide splitting pedestrian stream upon entering corridor",
+      "validacion": {
+        "observaciones_leidas": 165585,
+        "lineas_mal_formadas": 0,
+        "registros_invalidos": 0,
+        "duplicados": 0,
+        "saltos_eliminados": 1,
+        "trayectorias_cortas": 0
+      },
+      "colectivos": {
+        "peatones": 760,
+        "tiempo_cruce_region": 7.8138,
+        "densidad_media": 0.7011,
+        "densidad_maxima": 1.074,
+        "velocidad_media_area": 1.1659,
+        "correlacion_densidad_velocidad": -0.1104,
+        "cruces_linea": 760,
+        "flujo": 4.1315,
+        "flujo_especifico": 0.8263
+      }
+    },
+    "uni_corr_500_03": {
+      "fps": 16.0,
+      "parametros": {
+        "corridor width [m]": "5",
+        "corridor length [m]": "18",
+        "entrance width [m]": "3",
+        "exit width [m]": "5",
+        "movement_direction": "left to right"
+      },
+      "notas": null,
+      "validacion": {
+        "observaciones_leidas": 193908,
+        "lineas_mal_formadas": 0,
+        "registros_invalidos": 0,
+        "duplicados": 0,
+        "saltos_eliminados": 23,
+        "trayectorias_cortas": 1
+      },
+      "colectivos": {
+        "peatones": 915,
+        "tiempo_cruce_region": 9.7481,
+        "densidad_media": 1.3023,
+        "densidad_maxima": 1.9125,
+        "velocidad_media_area": 0.9287,
+        "correlacion_densidad_velocidad": -0.5236,
+        "cruces_linea": 915,
+        "flujo": 6.032,
+        "flujo_especifico": 1.2064
+      }
+    },
+    "uni_corr_500_04": {
+      "fps": 16.0,
+      "parametros": {
+        "corridor width [m]": "5",
+        "corridor length [m]": "18",
+        "entrance width [m]": "4",
+        "exit width [m]": "5",
+        "movement_direction": "right to left"
+      },
+      "notas": null,
+      "validacion": {
+        "observaciones_leidas": 264102,
+        "lineas_mal_formadas": 0,
+        "registros_invalidos": 0,
+        "duplicados": 0,
+        "saltos_eliminados": 19,
+        "trayectorias_cortas": 1
+      },
+      "colectivos": {
+        "peatones": 908,
+        "tiempo_cruce_region": 13.6759,
+        "densidad_media": 1.7389,
+        "densidad_maxima": 2.5125,
+        "velocidad_media_area": 0.7015,
+        "correlacion_densidad_velocidad": -0.4673,
+        "cruces_linea": 907,
+        "flujo": 5.9966,
+        "flujo_especifico": 1.1993
+      }
+    },
+    "uni_corr_500_05": {
+      "fps": 16.0,
+      "parametros": {
+        "corridor width [m]": "5",
+        "corridor length [m]": "18",
+        "entrance width [m]": "5",
+        "exit width [m]": "5",
+        "movement_direction": "left to right"
+      },
+      "notas": null,
+      "validacion": {
+        "observaciones_leidas": 272000,
+        "lineas_mal_formadas": 0,
+        "registros_invalidos": 0,
+        "duplicados": 0,
+        "saltos_eliminados": 216,
+        "trayectorias_cortas": 2
+      },
+      "colectivos": {
+        "peatones": 931,
+        "tiempo_cruce_region": 14.4431,
+        "densidad_media": 1.8966,
+        "densidad_maxima": 2.4625,
+        "velocidad_media_area": 0.6796,
+        "correlacion_densidad_velocidad": -0.6183,
+        "cruces_linea": 913,
+        "flujo": 6.2409,
+        "flujo_especifico": 1.2482
+      }
+    },
+    "uni_corr_500_06": {
+      "fps": 16.0,
+      "parametros": {
+        "corridor width [m]": "5",
+        "corridor length [m]": "18",
+        "entrance width [m]": "5",
+        "exit width [m]": "4",
+        "movement_direction": "right to left"
+      },
+      "notas": null,
+      "validacion": {
+        "observaciones_leidas": 331471,
+        "lineas_mal_formadas": 0,
+        "registros_invalidos": 0,
+        "duplicados": 0,
+        "saltos_eliminados": 21,
+        "trayectorias_cortas": 1
+      },
+      "colectivos": {
+        "peatones": 951,
+        "tiempo_cruce_region": 16.5674,
+        "densidad_media": 2.0329,
+        "densidad_maxima": 2.5156,
+        "velocidad_media_area": 0.5743,
+        "correlacion_densidad_velocidad": -0.5403,
+        "cruces_linea": 899,
+        "flujo": 5.621,
+        "flujo_especifico": 1.1242
+      }
+    },
+    "uni_corr_500_07": {
+      "fps": 16.0,
+      "parametros": {
+        "corridor width [m]": "5",
+        "corridor length [m]": "18",
+        "entrance width [m]": "5",
+        "exit width [m]": "3",
+        "movement_direction": "left to right"
+      },
+      "notas": null,
+      "validacion": {
+        "observaciones_leidas": 386510,
+        "lineas_mal_formadas": 0,
+        "registros_invalidos": 0,
+        "duplicados": 0,
+        "saltos_eliminados": 10,
+        "trayectorias_cortas": 1
+      },
+      "colectivos": {
+        "peatones": 935,
+        "tiempo_cruce_region": 21.6022,
+        "densidad_media": 2.2235,
+        "densidad_maxima": 2.8969,
+        "velocidad_media_area": 0.4537,
+        "correlacion_densidad_velocidad": -0.5634,
+        "cruces_linea": 913,
+        "flujo": 4.7315,
+        "flujo_especifico": 0.9463
+      }
+    },
+    "uni_corr_500_08": {
+      "fps": 16.0,
+      "parametros": {
+        "corridor width [m]": "5",
+        "corridor length [m]": "18",
+        "entrance width [m]": "5",
+        "exit width [m]": "2",
+        "movement_direction": "right to left"
+      },
+      "notas": "exit width was enlarged during the experiment to 5m (around frame 1700!)",
+      "validacion": {
+        "observaciones_leidas": 433875,
+        "lineas_mal_formadas": 0,
+        "registros_invalidos": 0,
+        "duplicados": 0,
+        "saltos_eliminados": 20,
+        "trayectorias_cortas": 1
+      },
+      "colectivos": {
+        "peatones": 917,
+        "tiempo_cruce_region": 23.4963,
+        "densidad_media": 2.374,
+        "densidad_maxima": 3.2094,
+        "velocidad_media_area": 0.4337,
+        "correlacion_densidad_velocidad": -0.7394,
+        "cruces_linea": 909,
+        "flujo": 4.4575,
+        "flujo_especifico": 0.8915
+      }
+    },
+    "uni_corr_500_09": {
+      "fps": 16.0,
+      "parametros": {
+        "corridor width [m]": "5",
+        "corridor length [m]": "18",
+        "entrance width [m]": "5",
+        "exit width [m]": "1",
+        "movement_direction": "left to right"
+      },
+      "notas": "exit width was reduced during the experiment to 0.6m, emergency exits were opened during the run",
+      "validacion": {
+        "observaciones_leidas": 572507,
+        "lineas_mal_formadas": 0,
+        "registros_invalidos": 0,
+        "duplicados": 0,
+        "saltos_eliminados": 69,
+        "trayectorias_cortas": 1
+      },
+      "colectivos": {
+        "peatones": 439,
+        "tiempo_cruce_region": 91.2054,
+        "densidad_media": 2.7366,
+        "densidad_maxima": 3.5844,
+        "velocidad_media_area": 0.1806,
+        "correlacion_densidad_velocidad": -0.6541,
+        "cruces_linea": 353,
+        "flujo": 1.2829,
+        "flujo_especifico": 0.2566
+      }
+    }
+  }
+}
